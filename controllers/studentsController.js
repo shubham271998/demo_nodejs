@@ -5,9 +5,10 @@ const getAllStudents = (req, res) => {
   pool.query("SELECT * FROM users", (error, results, fields) => {
     if (error) {
       console.error("Error executing query:", error);
-      res.status(500).json({ message: "Internal server error" });
+      res.status(500).json({ message: "Internal server error", error });
       return;
     }
+    console.log({ results });
     res.json({ message: "Get all students", data: results });
   });
 };
@@ -17,7 +18,7 @@ const getStudentById = (req, res) => {
   pool.query("SELECT * FROM users", (error, results, fields) => {
     if (error) {
       console.error("Error executing query:", error);
-      res.status(500).json({ message: "Internal server error" });
+      res.status(500).json({ message: "Internal server error", error });
       return;
     }
     res.json({ message: "Get all students", data: results });
@@ -30,7 +31,7 @@ const addStudent = (req, res) => {
   pool.query("INSERT INTO users SET ?", student, (error, results, fields) => {
     if (error) {
       console.error("Error executing query:", error);
-      res.status(500).json({ message: "Internal server error" });
+      res.status(500).json({ message: "Internal server error", error });
       return;
     }
     res.status(201).json({ message: "Student added successfully" });
@@ -47,7 +48,7 @@ const updateStudent = (req, res) => {
     (error, results, fields) => {
       if (error) {
         console.error("Error executing query:", error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error", error });
         return;
       }
       res.json({
@@ -66,7 +67,7 @@ const deleteStudent = (req, res) => {
     (error, results, fields) => {
       if (error) {
         console.error("Error executing query:", error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error", error });
         return;
       }
       res.json({
